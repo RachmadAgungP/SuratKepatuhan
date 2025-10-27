@@ -124,6 +124,13 @@
             <label class="block text-sm mb-1">Jabatan Pejabat</label>
             <input id="jabatanPejabat" class="w-full rounded-lg border px-3 py-2" placeholder="Sekretaris Dinas / Kepala Bidang" />
           </div>
+          <!-- TAMBAHAN: NIP Pejabat -->
+          <div>
+            <label class="block text-sm mb-1">NIP Pejabat</label>
+            <input id="nipPejabat" class="w-full rounded-lg border px-3 py-2" placeholder="1965xxxxxxxxx xxxx" />
+          </div>
+          
+
         </div>
 
         <div class="mt-6 flex flex-wrap gap-3">
@@ -204,7 +211,7 @@
       'instansi','unitKerja','nomorSurat','tanggalSurat','perihal','kota','alamat',
       'namaPegawai','nip','jabatan','email',
       'mulaiBerlaku','selesaiBerlaku','dasarHukum',
-      'namaPejabat','jabatanPejabat'
+      'namaPejabat','jabatanPejabat','nipPejabat'
     ];
     function loadForm() {
       const raw = localStorage.getItem('pdp_surat_form');
@@ -269,7 +276,7 @@
       `;
       const title = `
         <div class="mt-4 text-center">
-          <div class="uppercase font-bold tracking-wide">SURAT PERNYATAAN KEPA- TUHAN</div>
+          <div class="uppercase font-bold tracking-wide">SURAT PERNYATAAN KEPATUHAN</div>
           <div class="uppercase font-bold tracking-wide">PERLINDUNGAN DATA PRIBADI</div>
           <div class="mt-1 text-sm">Nomor: ${esc(v.nomorSurat) || genNomorSurat()}</div>
           <div class="mt-0.5 text-xs text-slate-500">ID Dokumen: ${docId}</div>
@@ -311,23 +318,25 @@
         </div>
       `;
 
-      const ttd = `
-        <div class="mt-8 grid grid-cols-2 gap-6">
-          <div class="text-sm">
-            <div>Mengetahui,</div>
-            <div>${esc(v.jabatanPejabat) || 'Pejabat Berwenang'}</div>
-            <div class="h-16"></div>
-            <div class="font-semibold underline underline-offset-4">${esc(v.namaPejabat) || '(Nama Pejabat)'}</div>
-          </div>
-          <div class="text-sm text-right">
-            <div>${esc(v.kota) || '-'}, ${fmtDateID(v.tanggalSurat) || fmtDateID(todayISO())}</div>
-            <div>Yang Menyatakan,</div>
-            <div class="h-16"></div>
-            <div class="font-semibold underline underline-offset-4">${esc(v.namaPegawai) || '(Nama Pegawai)'}</div>
-            <div>NIP. ${esc(v.nip) || '-'}</div>
-          </div>
-        </div>
-      `;
+     const ttd = `
+  <div class="mt-8 grid grid-cols-2 gap-6">
+    <div class="text-sm">
+      <div>Mengetahui,</div>
+      <div>${esc(v.jabatanPejabat) || 'Pejabat Berwenang'}</div>
+      <div class="h-16"></div>
+      <div class="font-semibold underline underline-offset-4">${esc(v.namaPejabat) || '(Nama Pejabat)'}</div>
+      <div>NIP. ${esc(v.nipPejabat) || '-'}</div> <!-- TAMBAHAN -->
+    </div>
+    <div class="text-sm text-right">
+      <div>${esc(v.kota) || '-'}, ${fmtDateID(v.tanggalSurat) || fmtDateID(todayISO())}</div>
+      <div>Yang Menyatakan,</div>
+      <div class="h-16"></div>
+      <div class="font-semibold underline underline-offset-4">${esc(v.namaPegawai) || '(Nama Pegawai)'}</div>
+      <div>NIP. ${esc(v.nip) || '-'}</div>
+    </div>
+  </div>
+`;
+
 
       $('doc').innerHTML = `
         ${header}
@@ -400,3 +409,4 @@
   </script>
 </body>
 </html>
+
